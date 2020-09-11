@@ -5,6 +5,7 @@ import Joke from './Joke';
 class JokeDisplay extends Component {
   state = {
     jokes: [],
+    score: 0
   }
 
   // make an API request when JokeDisplay renders
@@ -31,6 +32,15 @@ class JokeDisplay extends Component {
     }
   }
 
+  // increment function
+  handleIncrement = () => {
+    this.setState(state => ({ score: state.score + 1}));
+  }
+
+  // decrement function
+  handleDecrement = () => {
+    this.setState(state => ({ score: state.score - 1}));
+  }
 
   render() {
 
@@ -38,6 +48,9 @@ class JokeDisplay extends Component {
     const jokesList = this.state.jokes.map(joke => (
       <Joke 
         text={joke}
+        increment={this.handleIncrement}
+        decrement={this.handleDecrement}
+        score={this.state.score}
       />
     ));
 

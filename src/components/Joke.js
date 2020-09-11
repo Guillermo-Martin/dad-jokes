@@ -2,9 +2,14 @@ import React from 'react';
 
 function Joke(props) {
   return (
-    <div>
-      <li>{props.text}</li>
-    </div>
+    
+      <li>
+        <button onClick={props.increment}>Vote Up</button>
+        <p>{props.score}</p>
+        <button onClick={props.decrement}>Vote Down</button>
+        <p>{props.text}</p>
+      </li>
+    
   );
 }
 
