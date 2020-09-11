@@ -25,7 +25,7 @@ class JokeDisplay extends Component {
       }
 
       // console.log(this.state.jokes);
-      
+
     } catch (err) {
       console.log(err);
     }
@@ -33,9 +33,19 @@ class JokeDisplay extends Component {
 
 
   render() {
+
+    // for every joke in the jokes array, render a joke component
+    const jokesList = this.state.jokes.map(joke => (
+      <Joke 
+        text={joke}
+      />
+    ));
+
     return (
       <div>
-        <Joke />
+        <ul>
+          {jokesList}
+        </ul>
       </div>
     );
   }

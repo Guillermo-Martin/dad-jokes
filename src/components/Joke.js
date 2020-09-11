@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Joke() {
+function Joke(props) {
   return (
     <div>
-      <h1>this is a joke</h1>
+      <li>{props.text}</li>
     </div>
   );
 }
