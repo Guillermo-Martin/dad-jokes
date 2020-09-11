@@ -1,11 +1,11 @@
 import React from 'react';
-import Joke from './components/Joke'
+import JokeDisplay from './components/JokeDisplay';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Joke />
+      <JokeDisplay />
     </div>
   );
 }
