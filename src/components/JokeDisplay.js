@@ -4,7 +4,7 @@ import Joke from './Joke';
 
 class JokeDisplay extends Component {
   state = {
-    jokes: [],
+    jokes: "",
     score: 0
   }
 
@@ -12,20 +12,25 @@ class JokeDisplay extends Component {
   async componentDidMount() {
     // for the GET request to respond with JSON , we have to pass in "headers" with the GET request
     try {
+      // create an array that will hold all ten jokes
+      let allJokes = [];
 
-      // make the request 10 times; each time pushing the joke into the jokes state
-      while (this.state.jokes.length < 10) {
-        // make a request to get a joke
+      // make an api call 10 times;
+      while (allJokes.length < 10) {
         let res = await axios.get("https://icanhazdadjoke.com/", { headers: { Accept: "application/json" } });
-        let joke = res.data.joke;
+        
+        // get joke info
+        let jokeInfo = res.data;
 
-        // push that joke into the jokes array in state
-        this.setState(state => (
-          { jokes: [...state.jokes, joke] }
-        ));
+        // push info into allJokes array
+        allJokes.push(jokeInfo);
       }
 
-      // console.log(this.state.jokes);
+
+      // then update the jokes State
+      this.setState({ jokes: allJokes});
+
+      console.log(this.state.jokes, "line 47");
 
     } catch (err) {
       console.log(err);
@@ -45,19 +50,19 @@ class JokeDisplay extends Component {
   render() {
 
     // for every joke in the jokes array, render a joke component
-    const jokesList = this.state.jokes.map(joke => (
-      <Joke 
-        text={joke}
-        increment={this.handleIncrement}
-        decrement={this.handleDecrement}
-        score={this.state.score}
-      />
-    ));
+    // const jokesList = this.state.jokes.map(joke => (
+    //   <Joke 
+    //     text={joke}
+    //     increment={this.handleIncrement}
+    //     decrement={this.handleDecrement}
+    //     score={this.state.score}
+    //   />
+    // ));
 
     return (
       <div>
         <ul>
-          {jokesList}
+          
         </ul>
       </div>
     );
