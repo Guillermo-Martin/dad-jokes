@@ -4,7 +4,7 @@ import Joke from './Joke';
 
 class JokeDisplay extends Component {
   state = {
-    jokes: "",
+    jokes: [],
     score: 0
   }
 
@@ -30,7 +30,6 @@ class JokeDisplay extends Component {
       // then update the jokes State
       this.setState({ jokes: allJokes});
 
-      console.log(this.state.jokes, "line 47");
 
     } catch (err) {
       console.log(err);
@@ -50,19 +49,22 @@ class JokeDisplay extends Component {
   render() {
 
     // for every joke in the jokes array, render a joke component
-    // const jokesList = this.state.jokes.map(joke => (
-    //   <Joke 
-    //     text={joke}
-    //     increment={this.handleIncrement}
-    //     decrement={this.handleDecrement}
-    //     score={this.state.score}
-    //   />
-    // ));
+    
+    const jokesList = this.state.jokes.map(joke => (
+      <Joke 
+        key={joke.id}
+        id={joke.id}
+        text={joke.joke}
+        increment={this.handleIncrement}
+        decrement={this.handleDecrement}
+        score={this.state.score}
+      />
+    ));
 
     return (
       <div>
         <ul>
-          
+          {jokesList}
         </ul>
       </div>
     );
