@@ -53,8 +53,18 @@ class JokeDisplay extends Component {
   }
 
   // decrement function
-  handleDecrement = () => {
-    this.setState(state => ({ score: state.score - 1}));
+  handleDecrement = (event) => {
+    // get the joke id
+    let jokeId = event.target.value;
+
+    // filter through the jokes array and find the matching id
+    let filteredJoke = this.state.jokes.filter(joke => joke.id === jokeId);
+    
+    // subtract 1 to that object's score (currently set to 0 in the state)
+    let newScore = filteredJoke[0].score -= 1;
+
+    // change the joke's score
+    this.setState({score: newScore});
   }
 
   render() {
