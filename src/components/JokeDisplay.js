@@ -91,8 +91,9 @@ class JokeDisplay extends Component {
       <div className="JokeDisplay">
         {/* sidebar */}
         <div className="JokeDisplay-sidebar">
-
-          this will be the sidebar
+          <h2>Dad Jokes</h2>
+          <button>New Jokes</button>
+          
         </div>
 
         {/* jokes list */}
