@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Joke from './Joke';
+import './../assets/styles/JokeDisplay.css';
 
 class JokeDisplay extends Component {
   state = {
@@ -87,10 +88,20 @@ class JokeDisplay extends Component {
     ));
 
     return (
-      <div>
-        <ul>
-          {jokesList}
-        </ul>
+      <div className="JokeDisplay">
+        {/* sidebar */}
+        <div className="JokeDisplay-sidebar">
+
+          this will be the sidebar
+        </div>
+
+        {/* jokes list */}
+        <div className="JokeDisplay-list">
+          <ul>
+            {jokesList}
+          </ul>
+        </div>
+        
       </div>
     );
   }

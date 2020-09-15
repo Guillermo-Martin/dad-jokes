@@ -1,0 +1,15 @@
+.JokeDisplay {
+  display: flex;
+  justify-content: center;
+}
+
+.JokeDisplay-sidebar {
+  border: 3px solid black;
+  width: 15%;
+}
+
+.JokeDisplay-list {
+  border: 3px solid blue;
+  width: 50%;
+}
+
