@@ -19,7 +19,7 @@ class JokeDisplay extends Component {
       // make an api call 10 times;
       while (allJokes.length < 10) {
         let res = await axios.get("https://icanhazdadjoke.com/", { headers: { Accept: "application/json" } });
-        
+
         // get joke info
         let jokeInfo = res.data;
 
@@ -31,7 +31,7 @@ class JokeDisplay extends Component {
       }
 
       // then update the jokes State
-      this.setState({ jokes: allJokes});
+      this.setState({ jokes: allJokes });
 
     } catch (err) {
       console.log(err);
@@ -45,12 +45,12 @@ class JokeDisplay extends Component {
 
     // filter through the jokes array and find the matching id
     let filteredJoke = this.state.jokes.filter(joke => joke.id === jokeId);
-    
+
     // add +1 to that object's score (currently set to 0 in the state)
     let newScore = filteredJoke[0].score += 1;
 
     // change the joke's score
-    this.setState({score: newScore});
+    this.setState({ score: newScore });
   }
 
   // decrement function
@@ -60,21 +60,50 @@ class JokeDisplay extends Component {
 
     // filter through the jokes array and find the matching id
     let filteredJoke = this.state.jokes.filter(joke => joke.id === jokeId);
-    
+
     // subtract 1 to that object's score (currently set to 0 in the state)
     let newScore = filteredJoke[0].score -= 1;
 
     // change the joke's score
-    this.setState({score: newScore});
+    this.setState({ score: newScore });
   }
+
+  // get new Jokes function
+  handleGetJokes = async () => {
+    
+    try {
+      // create an array to hold new jokes
+      let newJokes = [];
+
+      while (newJokes.length < 10) {
+        // make an api request to get 10 jokes
+        let res = await axios.get("https://icanhazdadjoke.com/", { headers: { Accept: "application/json" } });
+
+        // get joke info
+        let jokeInfo = res.data;
+
+        // add score to the object, set to 0
+        res.data.score = 0;
+
+        // push info into allJokes array
+        newJokes.push(jokeInfo);
+      }
+
+      // update the state with a new array
+      this.setState({ jokes: newJokes });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 
   render() {
 
     // for every joke in the jokes array, render a joke component
-    
+
     const jokesList = this.state.jokes.map(joke => (
       <li key={joke.id}>
-        <Joke 
+        <Joke
           key={joke.id}
           id={joke.id}
           text={joke.joke}
@@ -83,8 +112,8 @@ class JokeDisplay extends Component {
           score={joke.score}
         />
       </li>
-      
-      
+
+
     ));
 
     return (
@@ -92,8 +121,8 @@ class JokeDisplay extends Component {
         {/* sidebar */}
         <div className="JokeDisplay-sidebar">
           <h2>Dad Jokes</h2>
-          <button>New Jokes</button>
-          
+          <button onClick={this.handleGetJokes}>New Jokes</button>
+
         </div>
 
         {/* jokes list */}
@@ -102,7 +131,7 @@ class JokeDisplay extends Component {
             {jokesList}
           </ul>
         </div>
-        
+
       </div>
     );
   }
