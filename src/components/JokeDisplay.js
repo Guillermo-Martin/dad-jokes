@@ -13,29 +13,53 @@ class JokeDisplay extends Component {
   async componentDidMount() {
     // for the GET request to respond with JSON , we have to pass in "headers" with the GET request
     try {
-      // create an array that will hold all ten jokes
-      let allJokes = [];
 
-      // make an api call 10 times;
-      while (allJokes.length < 10) {
-        let res = await axios.get("https://icanhazdadjoke.com/", { headers: { Accept: "application/json" } });
+      // check to see if there are jokes in localstorage
+      let prevJokes = JSON.parse(localStorage.getItem("jokes"));
 
-        // get joke info
-        let jokeInfo = res.data;
+      // if there are jokes, change the state to be those
+      if (prevJokes !== null) {
+        // this.setState({ jokes: prevJokes });
+        console.log(prevJokes)
+        this.setState({ jokes: prevJokes})
+        // if there are no jokes in localstorage then get new jokes
+      } else {
+        // create an array that will hold all ten jokes
+        let allJokes = [];
 
-        // add score to the object, set to 0
-        res.data.score = 0;
+        // make an api call 10 times;
+        while (allJokes.length < 10) {
+          let res = await axios.get("https://icanhazdadjoke.com/", { headers: { Accept: "application/json" } });
 
-        // push info into allJokes array
-        allJokes.push(jokeInfo);
+          // get joke info
+          let jokeInfo = res.data;
+
+          // add score to the object, set to 0
+          res.data.score = 0;
+
+          // push info into allJokes array
+          allJokes.push(jokeInfo);
+        }
+
+        // then update the jokes State
+        this.setState({ jokes: allJokes });
+
+        // store jokes into localstorage
+        localStorage.setItem("jokes", JSON.stringify(allJokes));
       }
-
-      // then update the jokes State
-      this.setState({ jokes: allJokes });
 
     } catch (err) {
       console.log(err);
     }
+
+    // // store all of the jokes into local storage
+    // localStorage.setItem("jokes", JSON.stringify(this.state.jokes));
+
+    // // retrieve jokes from local storage 
+    // let prevJokes = JSON.parse(localStorage.getItem("jokes"));
+
+    // // change state to previously stored jokes
+    // this.setState({ jokes: prevJokes });
   }
 
   // increment function
@@ -70,7 +94,7 @@ class JokeDisplay extends Component {
 
   // get new Jokes function
   handleGetJokes = async () => {
-    
+
     try {
       // create an array to hold new jokes
       let newJokes = [];
