@@ -16,7 +16,6 @@ class JokeDisplay extends Component {
 
       // check to see if there are jokes in localstorage
       let prevJokes = localStorage.getItem("jokes");
-      console.log(prevJokes, "line 19");
 
       // if there are no jokes, make an api request to get 10 jokes
       if(prevJokes === null) {
@@ -118,6 +117,9 @@ class JokeDisplay extends Component {
 
       // update the state with a new array
       this.setState({ jokes: newJokes });
+
+      // push new jokes into local storage
+      localStorage.setItem("jokes", JSON.stringify(newJokes));
     } catch (err) {
       console.log(err);
     }
