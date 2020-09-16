@@ -15,15 +15,11 @@ class JokeDisplay extends Component {
     try {
 
       // check to see if there are jokes in localstorage
-      let prevJokes = JSON.parse(localStorage.getItem("jokes"));
+      let prevJokes = localStorage.getItem("jokes");
+      console.log(prevJokes, "line 19");
 
-      // if there are jokes, change the state to be those
-      if (prevJokes !== null) {
-        // this.setState({ jokes: prevJokes });
-        console.log(prevJokes)
-        this.setState({ jokes: prevJokes})
-        // if there are no jokes in localstorage then get new jokes
-      } else {
+      // if there are no jokes, make an api request to get 10 jokes
+      if(prevJokes === null) {
         // create an array that will hold all ten jokes
         let allJokes = [];
 
@@ -46,7 +42,14 @@ class JokeDisplay extends Component {
 
         // store jokes into localstorage
         localStorage.setItem("jokes", JSON.stringify(allJokes));
+      } else {
+        this.setState({jokes: JSON.parse(prevJokes)});
       }
+        
+      
+
+
+
 
     } catch (err) {
       console.log(err);
