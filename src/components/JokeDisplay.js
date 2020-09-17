@@ -138,9 +138,12 @@ class JokeDisplay extends Component {
 
   render() {
 
-    // for every joke in the jokes array, render a joke component
-
-    const jokesList = this.state.jokes.map(joke => (
+    // sort method:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#:~:text=The%20sort()%20method%20sorts,UTF%2D16%20code%20units%20values.
+    // sort jokes by ascending score
+    let sortedJokes = this.state.jokes.sort((a, b) => b.score - a.score);
+    
+    // for every joke in the jokes array, render a joke component (map through sorted jokes)
+    const jokesList = sortedJokes.map(joke => (
       <li key={joke.id}>
         <Joke
           key={joke.id}
@@ -187,4 +190,12 @@ class JokeDisplay extends Component {
 }
 
 export default JokeDisplay;
+
+// FURTHER STUDY:
+// check for duplicate jokes
+
+  // loop through the jokes and get the id
+  // see if the array has the id (use '.includes(id))
+  // if it doesn't include the id(push it into a new array)
+
 
