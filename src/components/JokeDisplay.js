@@ -77,6 +77,9 @@ class JokeDisplay extends Component {
 
     // change the joke's score
     this.setState({ score: newScore });
+
+    // push new score to localStorage (push updated jokes array)
+    localStorage.setItem("jokes", JSON.stringify(this.state.jokes));
   }
 
   // decrement function
@@ -92,6 +95,9 @@ class JokeDisplay extends Component {
 
     // change the joke's score
     this.setState({ score: newScore });
+
+    // push new score to localStorage (push updated jokes array)
+    localStorage.setItem("jokes", JSON.stringify(this.state.jokes));
   }
 
   // get new Jokes function
