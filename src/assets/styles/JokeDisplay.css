@@ -14,5 +14,7 @@
 .JokeDisplay-list {
   border: 3px solid blue;
   width: 50%;
+  height: 50%;
+  overflow: scroll;
 }
 
