@@ -121,8 +121,8 @@ class JokeDisplay extends Component {
         newJokes.push(jokeInfo);
       }
 
-      // update the state with a new array
-      this.setState({ jokes: newJokes });
+      // add jokes to the existing set of jokes
+      this.setState(curState => ({jokes: [...curState.jokes, ...newJokes]}))
 
       // push new jokes into local storage
       localStorage.setItem("jokes", JSON.stringify(newJokes));
