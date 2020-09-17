@@ -103,7 +103,10 @@ class JokeDisplay extends Component {
 
   // get new Jokes function
   handleGetJokes = async () => {
+    // change isLoaded to false
+    this.setState({ isLoaded: false });
 
+    // then get jokes
     try {
       // create an array to hold new jokes
       let newJokes = [];
@@ -123,7 +126,7 @@ class JokeDisplay extends Component {
       }
 
       // add jokes to the existing set of jokes
-      this.setState(curState => ({jokes: [...curState.jokes, ...newJokes]}));
+      this.setState(curState => ({jokes: [...curState.jokes, ...newJokes], isLoaded: true}));
 
       // push new jokes into local storage
       localStorage.setItem("jokes", JSON.stringify(this.state.jokes));
@@ -162,11 +165,6 @@ class JokeDisplay extends Component {
         </div>
 
 
-      {/* // loading feature
-      // X create state called 'isLoading' set to false (component hasn't mounted)
-      // X conditionally render component
-      // X if isLoaded is false, display 'loading'
-      // when component mounts, isLoaded is set to 'true' (render real component) */}
 
         {/* jokes list */}
         <div className="JokeDisplay-list">
