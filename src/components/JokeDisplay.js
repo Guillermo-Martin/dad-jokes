@@ -6,7 +6,8 @@ import './../assets/styles/JokeDisplay.css';
 class JokeDisplay extends Component {
   state = {
     jokes: [],
-    score: 0
+    score: 0,
+    isLoaded: false
   }
 
   // make an API request when JokeDisplay renders
@@ -36,18 +37,18 @@ class JokeDisplay extends Component {
           allJokes.push(jokeInfo);
         }
 
-        // then update the jokes State
-        this.setState({ jokes: allJokes });
+        // then update the jokes State and isLoaded state to true
+        this.setState({ jokes: allJokes, isLoaded: true });
 
         // store jokes into localstorage
         localStorage.setItem("jokes", JSON.stringify(allJokes));
       } else {
-        this.setState({jokes: JSON.parse(prevJokes)});
+        // set isLoaded to true 
+        this.setState({jokes: JSON.parse(prevJokes), isLoaded: true });
       }
         
       
-
-
+      
 
 
     } catch (err) {
@@ -122,7 +123,7 @@ class JokeDisplay extends Component {
       }
 
       // add jokes to the existing set of jokes
-      this.setState(curState => ({jokes: [...curState.jokes, ...newJokes]}))
+      this.setState(curState => ({jokes: [...curState.jokes, ...newJokes]}));
 
       // push new jokes into local storage
       localStorage.setItem("jokes", JSON.stringify(this.state.jokes));
@@ -160,11 +161,26 @@ class JokeDisplay extends Component {
 
         </div>
 
+
+      {/* // loading feature
+      // X create state called 'isLoading' set to false (component hasn't mounted)
+      // X conditionally render component
+      // X if isLoaded is false, display 'loading'
+      // when component mounts, isLoaded is set to 'true' (render real component) */}
+
         {/* jokes list */}
         <div className="JokeDisplay-list">
-          <ul>
-            {jokesList}
-          </ul>
+          {/* conditionally render component */}
+          {
+            this.state.isLoaded 
+              ? 
+                <ul>
+                  {jokesList}
+                </ul>
+              :
+                <h1>LOADING!</h1>
+          }
+          
         </div>
 
       </div>
