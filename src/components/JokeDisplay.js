@@ -125,7 +125,7 @@ class JokeDisplay extends Component {
       this.setState(curState => ({jokes: [...curState.jokes, ...newJokes]}))
 
       // push new jokes into local storage
-      localStorage.setItem("jokes", JSON.stringify(newJokes));
+      localStorage.setItem("jokes", JSON.stringify(this.state.jokes));
     } catch (err) {
       console.log(err);
     }
